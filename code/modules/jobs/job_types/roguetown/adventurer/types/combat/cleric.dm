@@ -5,29 +5,28 @@
 	allowed_sexes = list("male","female")
 	allowed_races = list("Humen", "Elf", "Dwarf", "Aasimar", "Dark Elf",
 	"Aasimar")
-	allowed_patrons = list("Astrata", "Dendor", "Necra", "Pestra")
+	allowed_patrons = list("Astrata", "Dendor", "Necra", "Pestra","Noc")
 	ispilgrim = FALSE
 	vampcompat = FALSE
 	outfit = /datum/outfit/job/roguetown/adventurer/cleric
 
 /datum/outfit/job/roguetown/adventurer/cleric/pre_equip(mob/living/carbon/human/H)
 	..()
-	var/allowed_patrons = list("Astrata", "Dendor", "Necra", "Pestra")
+	var/allowed_patrons = list("Astrata", "Dendor", "Necra", "Pestra","Noc")
 
 	var/datum/patrongods/ourpatron
 	if(istype(H.PATRON, /datum/patrongods))
 		ourpatron = H.PATRON
 
 	if(!ourpatron || !(ourpatron.name in allowed_patrons))
-
 		var/list/datum/patrongods/possiblegods = list()
-		for(var/datum/patrongods/P in GLOB.patronlist)
-			if(P.name in allowed_patrons)
-				possiblegods |= P
-
+		for(var/god in GLOB.patronlist)
+			var/datum/patrongods/patron = GLOB.patronlist[god]
+			if(patron.name in allowed_patrons)
+				possiblegods |= patron
 		ourpatron = pick(possiblegods)
 		H.PATRON = ourpatron
-		to_chat(H, "<span class='warning'> My patron had not endorsed my practices in my younger years. I've since grown acustomed to [H.PATRON].")
+		to_chat(H, "<span class='warning'>My patron had not endorsed my practices in my younger years. I've since grown acustomed to [H.PATRON].")
 
 	switch(ourpatron.name)
 		if("Astrata")
@@ -38,6 +37,8 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/necra
 		if("Pestra")
 			neck = /obj/item/clothing/neck/roguetown/psicross/pestra
+		if("Noc")
+			neck = /obj/item/clothing/neck/roguetown/psicross/noc
 
 	armor = /obj/item/clothing/suit/roguetown/armor/plate
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
