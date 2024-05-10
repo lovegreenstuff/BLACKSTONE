@@ -6,12 +6,12 @@
 	total_positions = 2
 	spawn_positions = 2
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
-	allowed_races = list("Humen",
-	"Elf",
-	"Half-Elf",
-	"Dwarf",
-	"Tiefling",
-	"Aasimar"
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Aasimar",
 	)
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR
@@ -19,7 +19,7 @@
 	whitelist_req = FALSE
 	outfit = /datum/outfit/job/roguetown/councillor
 	give_bank_account = 40
-	min_pq = 5
+	min_pq = 2
 
 /datum/outfit/job/roguetown/councillor/pre_equip(mob/living/carbon/human/H)
 	..()

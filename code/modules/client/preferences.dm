@@ -985,8 +985,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			if(job.plevel_req > user.client.patreonlevel())
 				HTML += "<font color=#a59461>[used_name]</font></td> <td> </td></tr>"
 				continue
-			if(get_playerquality(user.ckey) < job.min_pq && !job.required)
-				HTML += "<font color=#a59461>[used_name]</font></td> <td> </td></tr>"
+			if(!job.required && !isnull(job.min_pq) && (get_playerquality(user.ckey) < job.min_pq))
+				HTML += "<font color=#a59461>[used_name] (Min PQ: [job.min_pq])</font></td> <td> </td></tr>"
 				continue
 			if(!(user.client.prefs.age in job.allowed_ages))
 				HTML += "<font color=#a36c63>[used_name]</font></td> <td> </td></tr>"
@@ -1155,7 +1155,7 @@ Slots: [job.spawn_positions]</span>
 		if(1)
 			jpval = JP_HIGH
 
-	if(job.required && get_playerquality(user.ckey) < job.min_pq)
+	if(job.required && !isnull(job.min_pq) && (get_playerquality(user.ckey) < job.min_pq))
 		if(job_preferences[job.title] == JP_LOW)
 			jpval = null
 		else
@@ -1472,9 +1472,7 @@ Slots: [job.spawn_positions]</span>
 		user.show_triumphs_list()
 
 	else if(href_list["preference"] == "playerquality")
-		var/amt = get_commends(user.ckey)
-		to_chat(user, "PlayerQuality represents the aggregate data collected automatically by the game to determine your reliability level as a RolePlayer. <font color='blue'>You have earned [amt] commendations from other players.</font>")
-
+		check_pq_menu(user.ckey)
 
 	else if(href_list["preference"] == "keybinds")
 		switch(href_list["task"])
@@ -2249,11 +2247,11 @@ Slots: [job.spawn_positions]</span>
 				if("ambientocclusion")
 					ambientocclusion = !ambientocclusion
 					if(parent && parent.screen && parent.screen.len)
-						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
-						PM = locate(/obj/screen/plane_master/game_world_fov_hidden) in parent.screen
+						PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in parent.screen
 						PM.backdrop(parent.mob)
-						PM = locate(/obj/screen/plane_master/game_world_above) in parent.screen
+						PM = locate(/atom/movable/screen/plane_master/game_world_above) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("auto_fit_viewport")

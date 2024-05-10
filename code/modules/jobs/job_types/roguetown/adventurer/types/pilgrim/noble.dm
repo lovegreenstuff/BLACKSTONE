@@ -1,13 +1,14 @@
 /datum/advclass/noble
 	name = "Noble"
 	allowed_sexes = list("male", "female")
-	allowed_races = list("Humen",
-	"Humen",
-	"Elf",
-	"Half-Elf",
-	"Aasimar"
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Aasimar"
 	)
 	outfit = /datum/outfit/job/roguetown/adventurer/noble
+	traits_applied = list(RTRAIT_NOBLE)
 	isvillager = FALSE
 	ispilgrim = TRUE
 
@@ -24,7 +25,6 @@
 	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel)
 	neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 	id = /obj/item/clothing/ring/silver
-	ADD_TRAIT(H, RTRAIT_NOBLE, TRAIT_GENERIC)
 	if(H.gender == FEMALE)
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)

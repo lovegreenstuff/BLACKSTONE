@@ -11,7 +11,7 @@
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
-	min_pq = -9
+	min_pq = 2 //good fragger role
 
 /datum/outfit/job/roguetown/mercenary/grenzelhoft/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -27,12 +27,14 @@
 	head = /obj/item/clothing/head/roguetown/chaperon
 
 	//quick and gay way to do random loadouts
-	var equipment = rand(1, 2)
-	if (equipment == 1) {
-		backl = /obj/item/rogueweapon/spear/billhook
-	} else if (equipment == 2) {
-		backl = /obj/item/rogueweapon/halberd
-	}
+	var/equipment = rand(1, 2)
+	if(equipment == 1)
+		r_hand = /obj/item/rogueweapon/spear/billhook
+	else if (equipment == 2)
+		r_hand = /obj/item/rogueweapon/halberd
+	var/obj/item/flashlight/flare/torch/T = new()
+	T.spark_act()
+	H.put_in_hands(T,forced=TRUE)
 
 	if(H.gender == FEMALE)
 		var/acceptable = list("Tomboy", "Bob", "Curly Short")

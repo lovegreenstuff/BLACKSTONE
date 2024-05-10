@@ -4,7 +4,8 @@
 #define RTRAIT_NOSTINK 					"Dead Nose"
 #define RTRAIT_ZJUMP 					"High Jumping"
 #define RTRAIT_NOSEGRAB 				"Intimidating"
-#define RTRAIT_SEEPRICES				"Giza Blood"
+#define RTRAIT_SEEPRICES				"Giza Blooded"
+#define RTRAIT_SEEPRICES_SHITTY			"Giza-in-training"
 #define RTRAIT_STRONGBITE				"Strong Bite"
 #define RTRAIT_NOBLE					"Noble Blooded"
 #define RTRAIT_EMPATH					"Empath"
@@ -14,7 +15,8 @@
 #define RTRAIT_DECEIVING_MEEKNESS		"Deceiving Meekness"
 #define RTRAIT_CRITICAL_RESISTANCE		"Critical Resistance"
 #define RTRAIT_MANIAC_AWOKEN			"Awoken"
-#define RTRAIT_NOFATSTAM					"Indefatigable" //for ai
+#define RTRAIT_NOFATSTAM				"Indefatigable" //for ai
+#define RTRAIT_NUDIST					"Nudist" //you can't wear most clothes
 
 #define TRAIT_SPELLCOCKBLOCK "spellcockblock" //prevents spellcasting
 #define TRAIT_NOSLEEP				"Fatal Insomnia"
@@ -33,10 +35,11 @@
 
 GLOBAL_LIST_INIT(roguetraits, list(
 	RTRAIT_WEBWALK = "I can move freely between webs.",
-	RTRAIT_NOSTINK = "My nose is numb to the smell of decay.",
+	RTRAIT_NOSTINK = "<span class='deadsay'>My nose is numb to the smell of decay.</span>",
 	RTRAIT_ZJUMP = "Who needs to climb when you can make great leaps?",
-	RTRAIT_NOSEGRAB = "I love to grab the idiots by their noses.",
+	RTRAIT_NOSEGRAB = "I love to grab idiots by their noses!",
 	RTRAIT_SEEPRICES = "I can tell the prices of things down to the zenny.",
+	RTRAIT_SEEPRICES_SHITTY = "I can tell the prices of things... <i>Kind of</i>.",
 	RTRAIT_STRONGBITE = "Stronger bites, critical bite attacks.",
 	RTRAIT_NOBLE = "<span class='blue'>I'm of noble blood.</span>",
 	RTRAIT_EMPATH = "I can notice stress levels in detail.",
@@ -45,11 +48,12 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	RTRAIT_HEAVYARMOR = "I can move freely in heavy armor.",
 	RTRAIT_DECEIVING_MEEKNESS = "People look at me and think I am a weakling. They are mistaken.",
 	RTRAIT_CRITICAL_RESISTANCE = "I am resistant to wounds that would be life threatening to others.",
-	RTRAIT_MANIAC_AWOKEN = "I am <b>WAKING UP</b> and the sheeple know this. They will resist.",
+	RTRAIT_MANIAC_AWOKEN = "<span class='warning'>I am <b>WAKING UP</b> and the sheeple know this. They will resist.</span>",
 	RTRAIT_NOFATSTAM = "I have boundless energy, I will never tire.",
+	RTRAIT_NUDIST = "I <b>refuse</b> to wear clothes. They are a hindrance to my freedom.",
 	TRAIT_ANTIMAGIC = "I am immune to most forms of magic.",
 	TRAIT_SHOCKIMMUNE = "I am immune to electrical shocks.",
-	TRAIT_NOSLEEP = "I can't sleep.",
+	TRAIT_NOSLEEP = "<span class='warning'>I can't sleep.</span>",
 ))
 
 
@@ -320,4 +324,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define SLEEPING_CARP_TRAIT "sleeping_carp"
 #define MADE_UNCLONEABLE "made-uncloneable"
 #define TIMESTOP_TRAIT "timestop"
-#define ADVENTURER_HUGBOX_TRAIT "adventurer_hugbox"
+#define HUGBOX_TRAIT "hugbox"
+#define ADVENTURER_TRAIT "adventurer"

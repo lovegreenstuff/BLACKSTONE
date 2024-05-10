@@ -6,15 +6,14 @@
 	total_positions = 0
 	spawn_positions = 1
 	selection_color = JCOLOR_NOBLE
-	allowed_races = list("Humen",
-	"Humen")
+	allowed_races = list("Humen")
 	allowed_sexes = list(MALE)
 	outfit = /datum/outfit/job/roguetown/lord
 	display_order = JDO_LORD
 	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error in their ways."
 	bypass_lastclass = FALSE
 	whitelist_req = FALSE
-	min_pq = 2
+	min_pq = 5
 	give_bank_account = 1000
 	required = TRUE
 

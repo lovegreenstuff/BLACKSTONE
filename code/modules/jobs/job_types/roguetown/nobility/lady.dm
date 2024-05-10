@@ -1,30 +1,32 @@
 /datum/job/roguetown/lady
 	title = "Queen"
-	flag = MERCHANT
-	department_flag = SERFS
+	flag = LADY
+	department_flag = NOBLEMEN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 
 	allowed_sexes = list(FEMALE)
-	allowed_races = list("Humen",
-	"Humen",
-	"Elf",
-	"Half-Elf",
-	"Dark Elf")
-	tutorial = "Picked out of your political value rather than likely any form of love, you have become the King's most trusted confidant and likely friend throughout your marriage. Your loyalty and, perhaps, love; will be tested this day. For the daggers that threaten your beloved are as equally pointed at your own throat.."
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Aasimar"
+	) //Picked for political value, could be anything. Make something up, or execute your wife if you're chudmaxxing that round.
+	tutorial = "Picked out of your political value rather than likely any form of love, you have become the King's most trusted confidant and likely friend throughout your marriage. Your loyalty and, perhaps, love; will be tested this day. For the daggers that threaten your beloved are as equally pointed at your own throat."
 
 	outfit = /datum/outfit/job/roguetown/lady
 
 	display_order = JDO_LADY
 	give_bank_account = TRUE
-	min_pq = -4
+	min_pq = 2
 
 /datum/outfit/job/roguetown/lady/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	ADD_TRAIT(H, RTRAIT_SEEPRICES, TRAIT_GENERIC)
+	ADD_TRAIT(H, RTRAIT_NOBLE, TRAIT_GENERIC)
 	beltl = /obj/item/roguekey/manor
-//	head = /obj/item/clothing/head/roguetown/hennin
 	neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 	belt = /obj/item/storage/belt/rogue/leather/cloth/lady
 	armor = /obj/item/clothing/suit/roguetown/armor/armordress
@@ -42,6 +44,9 @@
 			H.mind.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
 			H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
 			H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+			H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
+			H.mind.adjust_skillrank(/datum/skill/misc/medicine, 2, TRUE)
+			H.mind.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
 			if(H.age == AGE_OLD)
 				H.mind.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
 			H.change_stat("intelligence", 3)
@@ -49,6 +54,8 @@
 			H.change_stat("speed", 2)
 			H.change_stat("perception", 2)
 			H.change_stat("fortune", 5)
+	else
+		head = /obj/item/clothing/head/roguetown/hennin
 //		SSticker.rulermob = H
 	if(prob(66))
 		armor = /obj/item/clothing/suit/roguetown/armor/armordress/alt

@@ -120,7 +120,7 @@
 		user.rogfat_add(10)
 	if(M.checkdefense(user.used_intent, user))
 		if(M.d_intent == INTENT_PARRY)
-			if(!M.get_active_held_item()) //we parried with a bracer, redirect damage
+			if(!M.get_active_held_item() && !M.get_inactive_held_item()) //we parried with a bracer, redirect damage
 				if(M.active_hand_index == 1)
 					user.tempatarget = "l_arm"
 				else
@@ -403,7 +403,7 @@
 		if(I.damtype == BRUTE)
 			next_attack_msg.Cut()
 			if(woundcritroll(user.used_intent.blade_class, newforce, user, hitlim) && HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
-//				throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+//				throw_alert("embeddedobject", /atom/movable/screen/alert/embeddedobject)
 				simple_embedded_objects |= I
 				I.add_mob_blood(src)
 				I.forceMove(src)

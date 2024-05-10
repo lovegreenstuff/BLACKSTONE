@@ -3,16 +3,17 @@
 	name = "Torso"
 	tutorial = "Some horrible accident in the forest away all of your limbs!\nSurvival will be a true TRIUMPH."
 	allowed_sexes = list("male", "female")
-	allowed_races = list("Humen",
-	"Elf",
-	"Dark Elf",
-	"Half-Elf",
-	"Tiefling",
-	"Dwarf",
-	"Dwarf",
-	"Aasimar"
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf",
+		"Dwarf",
+		"Tiefling",
+		"Dark Elf",
+		"Aasimar"
 	)
 	outfit = /datum/outfit/job/roguetown/adventurer/torso
+	traits_applied = list(RTRAIT_HEAVYARMOR, RTRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED)
 	isvillager = FALSE
 	ispilgrim = TRUE
 
@@ -43,9 +44,6 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/rogueweapon/huntingknife
 
-	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
-	ADD_TRAIT(H, RTRAIT_MEDIUMARMOR, TRAIT_GENERIC)
-	ADD_TRAIT(H, RTRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	var/static/list/safe_bodyzones = list(
 		BODY_ZONE_HEAD,
 		BODY_ZONE_CHEST,

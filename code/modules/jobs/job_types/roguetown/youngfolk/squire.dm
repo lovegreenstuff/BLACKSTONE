@@ -5,9 +5,11 @@
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	allowed_races = list("Humen",
-	"Humen",
-	"Half-Elf")
+	allowed_races = list(
+		"Humen",
+		"Elf",
+		"Half-Elf"
+	) //same shit as town guard
 	allowed_sexes = list(MALE)
 	allowed_ages = list(AGE_YOUNG)
 
@@ -16,7 +18,7 @@
 	outfit = /datum/outfit/job/roguetown/squire
 	display_order = JDO_SQUIRE
 	give_bank_account = TRUE
-	min_pq = -10
+	min_pq = -5 //squires aren't great but they can do some damage
 
 /datum/outfit/job/roguetown/squire/pre_equip(mob/living/carbon/human/H)
 	..()
