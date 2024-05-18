@@ -106,6 +106,11 @@
 			sight_flags &= ~SEE_BLACKNESS
 	owner.update_sight()
 
+
+/obj/item/organ/eyes/night_vision/argonian
+	name = "lizard eyes"
+	desc = ""
+
 /obj/item/organ/eyes/night_vision/alien
 	name = "alien eyes"
 	desc = ""
@@ -139,6 +144,12 @@
 	desc = ""
 	see_in_dark = 3
 	lighting_alpha = LIGHTING_PLANE_ALPHA_LESSER_NV_TRAIT
+
+/obj/item/organ/eyes/goblin
+	name = "goblin eyes"
+	desc = ""
+	see_in_dark = 15
+	lighting_alpha = 200
 
 ///Robotic
 

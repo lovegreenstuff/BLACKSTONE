@@ -131,10 +131,32 @@
 		L.update_inv_cloak()
 	picked = TRUE
 
-/obj/item/clothing/cloak/tabard/crusader/tief
+/obj/item/clothing/cloak/tabard/crusader
 	detail_tag = "_psy"
+
+/obj/item/clothing/cloak/tabard/crusader/tief
 	color = CLOTHING_RED
 	detail_color = CLOTHING_WHITE
+
+/obj/item/clothing/cloak/tabard/crusader/astrata
+	color = "#9B7538"
+	detail_color = CLOTHING_WHITE
+
+/obj/item/clothing/cloak/tabard/crusader/dendor
+	color = "#4B5637"
+	detail_color = "#3D1D1C"
+
+/obj/item/clothing/cloak/tabard/crusader/necra
+	color = "#222223"
+	detail_color = "#CACBC5" 
+
+/obj/item/clothing/cloak/tabard/crusader/pestra
+	color = CLOTHING_WHITE
+	detail_color = CLOTHING_GREEN
+
+/obj/item/clothing/cloak/tabard/crusader/noc
+	color = "#2C2231"
+	detail_color = "#9AB0B0"
 
 /obj/item/clothing/cloak/tabard/crusader/tief/attack_right(mob/user)
 	if(picked)
@@ -482,7 +504,7 @@
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
 //	allowed_sex = list("male")
-	allowed_race = list("human", "tiefling", "elf", "aasimar")
+	allowed_race = list("humen", "tiefling", "argonian", "elfd", "elfw", "helf", "aasimar", "halforc")
 	detail_tag = "_det"
 	detail_color = CLOTHING_PURPLE
 
@@ -539,6 +561,17 @@
 	item_state = "apron"
 	alternate_worn_layer = TABARD_LAYER
 	body_parts_covered = CHEST|GROIN
+	boobed = TRUE
+	allowed_race = list("humen", "tiefling", "argonian", "aasimar", "halforc", "goblinp")
+
+/obj/item/clothing/cloak/apron/blacksmith
+	name = "leather apron"
+	desc = "A leather apron used by those who temper metals and work forges."
+	color = null
+	icon_state = "leather_apron"
+	item_state = "leather_apron"
+	body_parts_covered = CHEST|GROIN
+	armor = list("melee" = 12, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 24, "acid" = 0)
 	boobed = TRUE
 
 /obj/item/clothing/cloak/apron/brown
@@ -702,6 +735,7 @@
 
 /obj/item/clothing/cloak/cape/guard
 	color = CLOTHING_RED
+	
 /obj/item/clothing/cloak/cape/guard/Initialize()
 	. = ..()
 	if(GLOB.lordprimary)
@@ -721,12 +755,12 @@
 
 /obj/item/clothing/cloak/cape/puritan
 	icon_state = "puritan_cape"
-	allowed_race = list("human", "tiefling", "elf", "dwarf", "aasimar")
+	allowed_race = list("humen", "tiefling", "argonian", "elfd", "elfw", "helf", "dwarfm", "aasimar", "halforc")
 
 /obj/item/clothing/cloak/cape/archivist
 	icon_state = "puritan_cape"
 	color = CLOTHING_BLACK
-	allowed_race = list("human", "tiefling", "elf", "dwarf", "aasimar")
+	allowed_race = list("humen", "tiefling", "argonian", "elfd", "elfw", "helf", "dwarfm", "aasimar", "halforc")
 
 /obj/item/clothing/cloak/cape/rogue
 	name = "cape"
@@ -752,8 +786,8 @@
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
-	allowed_sex = list(MALE)
-	allowed_race = list("human", "tiefling", "aasimar")
+	allowed_sex = list(MALE, FEMALE)
+	allowed_race = list("humen", "tiefling", "argonian", "aasimar", "halforc")
 	nodismemsleeves = TRUE
 
 
@@ -779,8 +813,8 @@
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
-	allowed_sex = list(MALE)
-	allowed_race = list("human", "tiefling", "aasimar")
+	allowed_sex = list(MALE, FEMALE)
+	allowed_race = list("humen", "tiefling", "argonian", "aasimar", "halforc")
 	sellprice = 50
 	nodismemsleeves = TRUE
 
@@ -792,8 +826,8 @@
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
-	allowed_sex = list(MALE)
-	allowed_race = list("human", "tiefling", "aasimar")
+	allowed_sex = list(MALE, FEMALE)
+	allowed_race = list("humen", "tiefling", "argonian", "aasimar", "halforc", "goblinp")
 	sellprice = 50
 	nodismemsleeves = TRUE
 
@@ -814,7 +848,7 @@
 	toggle_icon_state = FALSE
 	color = CLOTHING_BLACK
 	allowed_sex = list(MALE, FEMALE)
-	allowed_race = list("human", "tiefling", "elf", "aasimar")
+	allowed_race = list("humen", "tiefling", "argonian", "elfd", "elfw", "helf", "aasimar", "halforc")
 
 /obj/item/clothing/cloak/half/brown
 	color = CLOTHING_BROWN
@@ -822,12 +856,15 @@
 /obj/item/clothing/cloak/half/red
 	color = CLOTHING_RED
 
+/obj/item/clothing/cloak/half/orange
+	color = CLOTHING_ORANGE
+
 /obj/item/clothing/cloak/half/vet
 	name = "town watch cloak"
 	icon_state = "guardcloak"
 	color = CLOTHING_RED
 	allowed_sex = list(MALE)
-	allowed_race = list("human", "tiefling", "aasimar")
+	allowed_race = list("humen", "tiefling", "argonian", "aasimar", "halforc")
 	inhand_mod = FALSE
 
 /obj/item/clothing/cloak/half/vet/Initialize()

@@ -53,6 +53,17 @@
 		to_chat(src, "<span class='danger'>The Github URL is not set in the server configuration.</span>")
 	return
 
+/client/verb/mentorhelp()
+	set name = "Mentorhelp"
+	set desc = ""
+	set category = "Admin"
+	if(mob)
+		var/msg = input("Say your meditation:", "Voices in your head") as text|null
+		if(msg)
+			mob.schizohelp(msg)
+	else
+		to_chat(src, "<span class='danger'>You can't currently use Mentorhelp in the main menu.</span>")
+
 /client/verb/reportissue()
 	set name = "report-issue"
 	set desc = ""
@@ -182,6 +193,17 @@ Hotkey-Mode: (hotkey-mode must be on)
 	set category = "OOC"
 	set name = "Commend Someone"
 	commendsomeone()
+
+/client/verb/changefps()
+	set category = "Options"
+	set name = "ChangeFPS"
+	if(!prefs)
+		return
+	var/newfps = input(usr, "Enter new FPS", "New FPS", 100) as null|num
+	if (!isnull(newfps))
+		prefs.clientfps = clamp(newfps, 1, 1000)
+		fps = prefs.clientfps
+		prefs.save_preferences()
 
 /*
 /client/verb/set_blur()

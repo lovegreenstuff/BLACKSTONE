@@ -109,7 +109,7 @@
 		if(VD)
 			if(statpanel("Stats"))
 				stat("Vitae:",VD.vitae)
-		if((mind.assigned_role == "Shepherd") || (mind.assigned_role == "Witch Hunter"))
+		if((mind.assigned_role == "Shepherd") || (mind.assigned_role == "Inquisitor"))
 			if(statpanel("Status"))
 				stat("Confessions sent: [GLOB.confessors.len]")
 
@@ -773,7 +773,7 @@
 		threatcount += 2
 
 	//Check for nonhuman scum
-	if(dna && dna.species.id && dna.species.id != "human")
+	if(dna && dna.species.id && dna.species.id != "human" && dna.species.id != "humen")
 		threatcount += 1
 
 	//mindshield implants imply trustworthyness

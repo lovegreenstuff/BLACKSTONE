@@ -302,11 +302,22 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/_load_species(S)
 	var/species_name
+	testing("begin _load_species()")
 	S["species"] >> species_name
 	if(species_name)
 		var/newtype = GLOB.species_list[species_name]
 		if(newtype)
 			pref_species = new newtype
+			if(!spec_check())
+				testing("spec_check() failed on type [newtype] and name [species_name], defaulting to [default_species].")
+				pref_species = new default_species.type()
+			else
+				testing("spec_check() succeeded on type [newtype] and name [species_name].")
+		else
+			testing("GLOB.species_list failed on name [species_name], defaulting to [default_species].")
+			pref_species = new default_species.type()
+	else
+		pref_species = new default_species.type()
 
 /datum/preferences/proc/_load_flaw(S)
 	var/charflaw_type
@@ -390,15 +401,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Character
 	_load_appearence(S)
 
-	var/patron_name
-	S["selected_patron"]	>> patron_name
-	if(patron_name)
-		selected_patron = GLOB.patronlist[patron_name]
+	var/patron_typepath
+	S["selected_patron"]	>> patron_typepath
+	if(patron_typepath)
+		selected_patron = GLOB.patronlist[patron_typepath]
 		if(!selected_patron) //failsafe
-			selected_patron = GLOB.patronlist[GLOB.patronlist[1]]
-		// var/newtype = GLOB.patronlist[patron_name]
-		// if(newtype)
-			// selected_patron = new newtype
+			selected_patron = GLOB.patronlist[default_patron]
 
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
@@ -563,7 +571,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
 
 	//Patron
-	WRITE_FILE(S["selected_patron"]		, selected_patron.name)
+	WRITE_FILE(S["selected_patron"]		, selected_patron.type)
 
 	return TRUE
 

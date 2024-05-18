@@ -11,6 +11,7 @@
 		diag_hud.add_to_hud(src)
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
+	init_faith()
 
 /mob/living/prepare_huds()
 	..()
@@ -736,11 +737,11 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_REVIVE, full_heal, admin_revive)
 	if(full_heal)
 		fully_heal(admin_revive = admin_revive)
-	if(stat == DEAD && can_be_revived()) //in some cases you can't revive (e.g. no brain)
+	if(stat == DEAD && (admin_revive || can_be_revived())) //in some cases you can't revive (e.g. no brain)
 		GLOB.dead_mob_list -= src
 		GLOB.alive_mob_list += src
 		set_suicide(FALSE)
-		stat = UNCONSCIOUS //the mob starts unconscious,
+		stat = CONSCIOUS
 		updatehealth() //then we check if the mob should wake up.
 		update_mobility()
 		update_sight()
@@ -1079,6 +1080,7 @@
 						"<span class='notice'>I break free of [pulledby]'s grip!</span>", null, null, pulledby)
 		to_chat(pulledby, "<span class='danger'>[src] breaks free of my grip!</span>")
 		log_combat(pulledby, src, "broke grab")
+		pulledby.changeNext_move(CLICK_CD_GRABBING)
 		pulledby.stop_pulling()
 		return FALSE
 	else

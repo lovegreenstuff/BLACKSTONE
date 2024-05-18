@@ -107,7 +107,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 	var/lord_dead = FALSE
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(H.mind)
-			if(H.job == "King" || H.job == "Queen")
+			if(H.job == "King")
 				lord_found = TRUE
 				if(H.stat == DEAD)
 					lord_dead = TRUE
@@ -199,7 +199,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 	//BANDITS
 	banditgoal = rand(200,400)
 	restricted_jobs = list("King",
-	"Queen",
+	"Queen Consort",
 	"Merchant",
 	"Priest",
 	"Knight")
@@ -232,8 +232,8 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 	restricted_jobs = list()
 
 /datum/game_mode/chaosmode/proc/pick_aspirants()
-	var/list/possible_jobs_aspirants = list("Prince", "Princess", "Sheriff", "Steward", "Hand", "Knight")
-	var/list/possible_jobs_helpers = list("Sheriff", "Prince", "Princess", "Hand",  "Steward", "Knight")
+	var/list/possible_jobs_aspirants = list("Prince", "Princess", "Guard Captain", "Steward", "Hand", "Knight")
+	var/list/possible_jobs_helpers = list("Guard Captain", "Prince", "Princess", "Hand",  "Steward", "Knight")
 	var/list/rolesneeded = list("Aspirant","Loyalist","Supporter")
 
 	antag_candidates = get_players_for_role(ROLE_ASPIRANT)
@@ -306,7 +306,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 	restricted_jobs = list()
 
 /datum/game_mode/chaosmode/proc/pick_maniac()
-	restricted_jobs = list("King", "Queen")
+	restricted_jobs = list("King", "Queen Consort")
 	antag_candidates = get_players_for_role(ROLE_MANIAC)
 	var/datum/mind/villain = pick_n_take(antag_candidates)
 	if(villain)
@@ -333,17 +333,17 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 /datum/game_mode/chaosmode/proc/pick_vampires()
 	var/vampsremaining = 3
 	restricted_jobs = list("King",
-	"Queen",
+	"Queen Consort",
 	"Dungeoneer",
-	"Witch Hunter",
+	"Inquisitor",
 	"Confessor",
-	"Town Guard",
-	"Castle Guard",
+	"Watchman",
+	"Man-at-arms",
 	"Veteran",
 	"Priest",
 	"Acolyte",
 	"Cleric",
-	"Sheriff",
+	"Guard Captain",
 	"Court Magician",
 	"Templar",
 	"Bog Guard",
@@ -375,7 +375,7 @@ var/global/list/roguegamemodes = list("Rebellion", "Vampire Lord", "Extended", "
 	restricted_jobs = list()
 
 /datum/game_mode/chaosmode/proc/pick_werewolves()
-	restricted_jobs = list("Acolyte", "Templar", "Priest","Adventurer","Confessor","Town Guard","Veteran","Castle Guard","Sheriff","Knight","Bog Guard","Bog Master")
+	restricted_jobs = list("Acolyte", "Templar", "Priest","Adventurer","Confessor","Watchman","Veteran","Man-at-arms","Guard Captain","Knight","Bog Guard","Bog Master","Inquisitor")
 /*	var/num_werewolves = rand(1,3)
 #ifdef TESTSERVER
 	num_werewolves = 100

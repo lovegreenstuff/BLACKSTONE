@@ -61,24 +61,25 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 
 GLOBAL_LIST_INIT(noble_positions, list(
 	"King",
-	"Queen",
+	"Queen Consort",
 	"Prince",
-	"Sheriff",
+	"Guard Captain",
 	"Bailiff",
 	"Councillor",
 	"Steward",
-	"Court Magician"
+	"Court Magician",
+	"Court Physician"
 	))
 
 GLOBAL_LIST_INIT(garrison_positions, list(
-	"Town Guard",
+	"Watchman",
 	"Bog Guard",
 	"Bog Master",
-	"Castle Guard",
+	"Man-at-arms",
 	"Veteran",
 	"Dungeoneer",
 	"Gatemaster",
-	"Village Elder"
+	"Bog Elder"
 	))
 
 GLOBAL_LIST_INIT(church_positions, list(
@@ -86,7 +87,7 @@ GLOBAL_LIST_INIT(church_positions, list(
 	"Cleric",
 	"Acolyte",
 	"Templar",
-	"Witch Hunter",
+	"Inquisitor",
 	"Confessor"
 	))
 
@@ -108,6 +109,7 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Cook",
 	"Gravedigger",
 	"Jester",
+	"Lunatic",
 	"Miner",
 	"Hunter",
 	"Fisher",
