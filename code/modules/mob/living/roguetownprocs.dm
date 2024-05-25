@@ -1,11 +1,9 @@
-
-
 /proc/accuracy_check(zone, mob/living/user, mob/living/target, associated_skill, datum/intent/used_intent, obj/item/I)
 	if(!zone)
 		return
 	if(user == target)
 		return zone
-	if(zone == "chest")
+	if(zone == BODY_ZONE_CHEST)
 		return zone
 	if(target.grabbedby == user)
 		if(user.grab_state >= GRAB_AGGRESSIVE)
@@ -59,9 +57,7 @@
 		else
 			if(user.client?.prefs.showrolls)
 				to_chat(user, "<span class='warning'>Ultra accuracy fail! [chance2hit]%</span>")
-			return "chest"
-
-
+			return BODY_ZONE_CHEST
 
 /mob/proc/get_generic_parry_drain()
 	return 30
@@ -369,7 +365,10 @@
 		if(L.rogfat >= L.maxrogfat)
 			return FALSE
 		if(L)
-			prob2defend = prob2defend + (L.STASPD * 10)
+			if(H.check_dodge_skill())
+				prob2defend = prob2defend + (L.STASPD * 15)
+			else
+				prob2defend = prob2defend + (L.STASPD * 10)
 		if(U)
 			prob2defend = prob2defend - (U.STASPD * 10)
 		if(I)
@@ -383,6 +382,8 @@
 			if(!H.check_armor_skill())
 				H.Knockdown(1)
 				return FALSE
+			if(H.check_dodge_skill())
+				drained = drained - 5
 //			if(H.mind)
 //				drained = drained + max((H.checkwornweight() * 10)-(mind.get_skill_level(/datum/skill/misc/athletics) * 10),0)
 //			else
