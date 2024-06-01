@@ -131,7 +131,7 @@
 			if(H.craftingthing && (H.mind?.lastrecipe != null))
 				last_craft = world.time
 				var/datum/component/personal_crafting/C = H.craftingthing
-				to_chat(H, "<span class='warning'>[H.mind?.lastrecipe]</span>")
+				to_chat(H, "<span class='warning'>I am crafting \a [H.mind?.lastrecipe] again.</span>")
 				C.construct_item(H, H.mind?.lastrecipe)
 		else
 			H.playsound_local(H, 'sound/misc/click.ogg', 100)
@@ -1582,6 +1582,7 @@
 	screen_loc = ui_backhudl
 	layer = BACKHUD_LAYER
 	plane = FULLSCREEN_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /atom/movable/screen/backhudl/Click()
 	return

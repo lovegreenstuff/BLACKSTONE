@@ -19,7 +19,6 @@
 	var/aux_layer
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
 	var/use_digitigrade = NOT_DIGITIGRADE //Used for alternate legs, useless elsewhere
-	var/list/embedded_objects = list()
 	var/held_index = 0 //are we a hand? if so, which one!
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
@@ -67,8 +66,8 @@
 	var/no_bruise_msg = "unbruised"
 
 	var/heavy_burn_msg = "CHARRED"
-	var/medium_burn_msg = "blistered"
-	var/light_burn_msg = "numb"
+	var/medium_burn_msg = "peeling"
+	var/light_burn_msg = "blistered"
 	var/no_burn_msg = "unburned"
 
 	var/add_extra = FALSE
@@ -92,10 +91,6 @@
 	return list(/datum/intent/grab/move, /datum/intent/grab/twist, /datum/intent/grab/smash)
 
 /obj/item/bodypart/chest/grabbedintents(mob/living/user, precise)
-	if(precise)
-		switch(precise)
-			if(BODY_ZONE_PRECISE_GROIN)
-				return list(/datum/intent/grab/move, /datum/intent/grab/twist)
 	return list(/datum/intent/grab/move, /datum/intent/grab/shove)
 
 /obj/item/bodypart/blob_act()
@@ -110,7 +105,6 @@
 	for(var/datum/wound/wound as anything in wounds)
 		qdel(wound)
 	return ..()
-
 
 /obj/item/bodypart/onbite(mob/living/carbon/human/user)
 	if((user.mind && user.mind.has_antag_datum(/datum/antagonist/zombie)) || istype(user.dna.species, /datum/species/werewolf))
@@ -138,22 +132,21 @@
 				user.temporarilyRemoveItemFromInventory(src, TRUE)
 				attach_limb(C)
 				return
-	..()
-/*
-/obj/item/bodypart/attackby(obj/item/W, mob/user, params)
-	if(W.get_sharpness())
+	return ..()
+
+/obj/item/bodypart/head/attackby(obj/item/I, mob/user, params)
+	if(length(contents) && I.get_sharpness() && !user.cmode)
 		add_fingerprint(user)
-		if(!contents.len)
-//			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
-			return
-		playsound(loc, 'sound/blank.ogg', 50, TRUE, -1)
+		playsound(loc, 'sound/combat/hits/bladed/genstab (1).ogg', 60, vary = FALSE)
 		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
-			"<span class='notice'>I begin to cut open [src]...</span>")
-		if(do_after(user, 54, target = src))
-			drop_organs(user, TRUE)
-	else
-		return ..()
-*/
+			"<span class='notice'>You begin to cut open [src]...</span>")
+		if(do_after(user, 5 SECONDS, target = src))
+			drop_organs(user)
+			user.visible_message("<span class='danger'>[user] cuts [src] open!</span>",\
+				"<span class='notice'>You finish cutting [src] open.</span>")
+		return
+	return ..()
+
 /obj/item/bodypart/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(status != BODYPART_ROBOTIC)
@@ -172,39 +165,23 @@
 		I.forceMove(T)
 
 /obj/item/bodypart/proc/skeletonize()
-	var/turf/T = get_turf(src)
-	if(T)
-		for(var/obj/item/I in embedded_objects)
-			embedded_objects -= I
-			I.forceMove(T)
-		for(var/obj/item/organ/I in src) //dust organs
-			qdel(I)
-		for(var/obj/item/I in src) //everything else gets dumped
-			if(I != bandage)
-				I.forceMove(T)
-	else
-		for(var/obj/item/I in embedded_objects)
-			embedded_objects -= I
-			qdel(I)
-		for(var/obj/item/I in src) //dust organs
-			qdel(I)
+	if(bandage)
+		remove_bandage()
+	for(var/obj/item/I in embedded_objects)
+		remove_embedded_object(I)
+	for(var/obj/item/I in src) //dust organs
+		qdel(I)
 	skeletonized = TRUE
 
 /obj/item/bodypart/chest/skeletonize()
 	. = ..()
-	if(owner)
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(!(C.dna && C.dna.species && (NOBLOOD in C.dna.species.species_traits)))
-				owner.death()
+	if(owner && (NOBLOOD in owner.dna?.species?.species_traits))
+		owner.death()
 
 /obj/item/bodypart/head/skeletonize()
 	. = ..()
-	if(owner)
-		if(iscarbon(owner))
-			var/mob/living/carbon/C = owner
-			if(!(C.dna && C.dna.species && (NOBLOOD in C.dna.species.species_traits)))
-				owner.death()
+	if(owner && (NOBLOOD in owner.dna?.species?.species_traits))
+		owner.death()
 
 /obj/item/bodypart/proc/consider_processing()
 	if(stamina_dam > DAMAGE_PRECISION)
@@ -539,11 +516,10 @@
 				. += aux
 		return
 
-
 	if(should_draw_greyscale && !skeletonized)
-		var/draw_color = mutation_color || species_color || (skin_tone)
-		if(draw_color && rotted)
-			draw_color = "878f79"
+		var/draw_color =  mutation_color || species_color || skin_tone
+		if(rotted || (owner && HAS_TRAIT(owner, TRAIT_ROTMAN)))
+			draw_color = SKIN_COLOR_ROT
 		if(draw_color)
 			limb.color = "#[draw_color]"
 			if(aux_zone && !hideaux)
@@ -551,8 +527,7 @@
 
 /obj/item/bodypart/deconstruct(disassembled = TRUE)
 	drop_organs()
-	qdel(src)
-
+	return ..()
 /obj/item/bodypart/chest
 	name = BODY_ZONE_CHEST
 	desc = ""
