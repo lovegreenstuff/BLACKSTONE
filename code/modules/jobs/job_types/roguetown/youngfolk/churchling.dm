@@ -30,44 +30,30 @@
 /datum/outfit/job/roguetown/churchling/pre_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
+		H.mind.adjust_skillrank(/datum/skill/misc/climbing, rand(3,5), TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, rand(3,5), TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/medicine, rand(3,4), TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/weaving, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, round(rand(3,5)), TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, round(rand(3,5)), TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/magic/holy, rand(1,2), TRUE)
+	neck = /obj/item/clothing/neck/roguetown/psicross
 	if(H.gender == MALE)
-		shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
-		belt = /obj/item/storage/belt/rogue/leather/rope
-		pants = /obj/item/clothing/under/roguetown/tights
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe
-	else
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-		shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
-		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
-		belt = /obj/item/storage/belt/rogue/leather/rope
-		pants = /obj/item/clothing/under/roguetown/tights
+	else
 		head = /obj/item/clothing/head/roguetown/armingcap
-	backl = /obj/item/storage/backpack/rogue/backpack
-	backpack_contents = list(
-		/obj/item/needle = 1,
-		/obj/item/rogueweapon/surgery/scalpel = 1,
-		/obj/item/rogueweapon/surgery/saw = 1,
-		/obj/item/rogueweapon/surgery/hemostat = 2, //2 forceps so you can clamp bleeders AND manipulate organs
-		/obj/item/rogueweapon/surgery/retractor = 1,
-		/obj/item/rogueweapon/surgery/bonesetter = 1,
-		/obj/item/rogueweapon/surgery/cautery = 1,
-	)
+		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
+	pants = /obj/item/clothing/under/roguetown/tights
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	backl = /obj/item/storage/backpack/rogue/satchel
 
 	H.change_stat("perception", 1)
 	H.change_stat("speed", 2)
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
-	//Max devotion limit - Churchlings can only call upon lesser miracles until their education is complete.
-	C.max_devotion = 100
-	C.max_progression = CLERIC_REQ_0
-	C.update_devotion(50, 50)
-	C.holder_mob = H
+	C.grant_spells_churchling(H)
 	H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
